@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 onclick="getPosts()">post application tests</h1>
+    <h1>login</h1>
+    <form id="login" onsubmit="login(event)">
+        <label for="email">email</label>
+        <input type="text" id="email" max="150"/>
+        <label for="password">password</label>
+        <input type="text" id="password" maxlength="150"/>
+        <button type="submit">login</button>    
+    </form>
+
+    <h1>chat</h1>
+    <form id="chat-form" onsubmit="sendMessage(event)">
+        <input type="text" id="chat" maxlength="200" />
+        <button type="submit">send</button>        
+    </form>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+<script>
+    var ws = new WebSocket("ws://localhost:5050/ws")
+    ws.onopen = function(){
+        console.log("connected to websocket")
+    }
+    ws.onmessage = function(event){
+        console.log(event.data)
+    }
+    ws.onerror = function(event){
+        console.log(`error ${event.error}`)
+    }
+    function getPosts(){
+        fetch("http://localhost:5050",{
+            method:"GET",
+            headers:{
+                "Authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyOTl4WTVHWklXTlQ3RlFkb0RFS3NJbHo5ZkIiLCJlbWFpbCI6InRlc3RpbmdAZW1haWwuY29tIiwiZXhwIjoxNjUzNTkzNTA1fQ.1ltJiDYGd11wYar_ziUqf1VYB7vQuyCj8OfsxpSbvwc"
+            }
+        }).then((response) => {
+            return response.json()
+        }).then((json) => {
+            console.log(json)
+        })        
+    }
+
+    function login(event){
+        event.preventDefault();
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+        console.log(email,password)
+        fetch("http://localhost:5050/login",{
+            method:"POST",
+            headers:{
+                "Content-type":"application/json",
+            },
+            body : JSON.stringify({
+                email:email,
+                password : password
+            })
+        }).then((response) =>{
+            return response.json()
+        }).then((json) => {
+            let response = json
+            console.log(response)
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
+    function sendMessage(event){
+        event.preventDefault();
+        let messageVal = document.getElementById("chat").value;
+        console.log(messageVal)
+        let body = {
+            message: messageVal
+        }
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyOTl4WTVHWklXTlQ3RlFkb0RFS3NJbHo5ZkIiLCJlbWFpbCI6InRlc3RpbmdAZW1haWwuY29tIiwiZXhwIjoxNjUzNTkzNTA1fQ.1ltJiDYGd11wYar_ziUqf1VYB7vQuyCj8OfsxpSbvwc"
+        fetch("http://localhost:5050/chat",{
+            method:"POST",
+            headers:{
+                "Content-type": "application/json",
+                "Authorization":token
+            },
+            body : JSON.stringify(body)
+        }).then(function(event){
+            return JSON.parse(event.body)
+        }).then((json) => {
+            console.log(json)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+</script>
+</html>

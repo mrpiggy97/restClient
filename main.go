@@ -1,7 +1,31 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/julienschmidt/httprouter"
+)
+
+type Server struct {
+	router *httprouter.Router
+}
+
+func (server *Server) ServeHTTP(writer http.ResponseWriter, req *http.Request) {
+	fmt.Println("serving")
+	server.router.ServeHTTP(writer, req)
+}
+
+func NewServer() *Server {
+	var router *httprouter.Router = httprouter.New()
+	router.ServeFiles("/*filepath", http.Dir("./public"))
+	return &Server{
+		router: router,
+	}
+}
 
 func main() {
-	fmt.Println("this will be a client for rest repository")
+	var appServer *Server = NewServer()
+	log.Fatal(http.ListenAndServe("0.0.0.0:8000", appServer))
 }

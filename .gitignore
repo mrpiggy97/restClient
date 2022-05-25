@@ -13,3 +13,22 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+/rest-client/node_modules
+rest-client/public/build
+
+# misc
+/rest-client/.DS_Store
+/rest-client/.env.local
+/rest-client/.env.development.local
+/rest-client/.env.test.local
+/rest-client/.env.production.local
+
+/rest-client/npm-debug.log*
+/rest-client/yarn-debug.log*
+/rest-client/yarn-error.log*
+/rest-client/.pnp
+/rest-client/.pnp.js
+
+# testing
+/rest-client/coverage
