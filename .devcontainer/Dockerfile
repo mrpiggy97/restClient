@@ -7,6 +7,8 @@ FROM mcr.microsoft.com/vscode/devcontainers/go:0-${VARIANT}
 # [Choice] Node.js version: none, lts/*, 16, 14, 12, 10
 ARG NODE_VERSION="none"
 ENV PORT=8000
+ENV REACT_APP_HTTP_API_URL="http://localhost:5050"
+ENV REACT_APP_WEBSOCKET_API_URL="ws://localhost:5050"
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
 # [Optional] Uncomment this section to install additional OS packages.
