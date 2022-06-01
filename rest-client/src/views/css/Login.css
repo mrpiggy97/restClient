@@ -1,0 +1,7 @@
+div#login-view{
+    display: grid;
+    grid-area: chat;
+    justify-items: center;
+    align-items: center;
+    border: 5px solid blue;
+}

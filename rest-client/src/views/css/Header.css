@@ -1,0 +1,7 @@
+div#header-view{
+    display: grid;
+    grid-area: header;
+    justify-items: center;
+    align-items: center;
+    border: 5px solid purple;
+}
