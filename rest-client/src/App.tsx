@@ -1,24 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
+import { useSelector } from 'react-redux';
 import './App.css';
 
+import HeaderView from './views/HeaderView';
+import ChatView from './views/ChatView';
+import LoginView from './views/LoginView';
+import {AppState} from "./store/reducer"
+
 function App() {
+  const userIsAuthenticated : boolean = useSelector((state : AppState) => state.Authenticated)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          this will be a chat app
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="app">
+        <HeaderView/>
+        {userIsAuthenticated ? <ChatView/> : <LoginView/>}
     </div>
   );
 }
