@@ -19,7 +19,7 @@ func (server *Server) ServeHTTP(writer http.ResponseWriter, req *http.Request) {
 
 func NewServer() *Server {
 	var router *httprouter.Router = httprouter.New()
-	router.ServeFiles("/*filepath", http.Dir("./public"))
+	router.ServeFiles("/*filepath", http.Dir("./rest-client/public"))
 	return &Server{
 		router: router,
 	}
