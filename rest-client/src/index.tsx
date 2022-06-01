@@ -4,13 +4,35 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+
+import { configureStore,applyMiddleware, ConfigureStoreOptions } from '@reduxjs/toolkit';
+import {Provider} from 'react-redux'
+import promise from 'redux-promise-middleware';
+import Reducer from './store/reducer';
+
+const middlewares = applyMiddleware(promise)
+
+const rootReducer = () => {
+  return {
+    authentication : Reducer
+  }
+}
+
+const storeConfig : ConfigureStoreOptions = {
+  reducer : rootReducer,
+  enhancers:[middlewares]
+}
+const store = configureStore(storeConfig)
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Provider store={store}>
+      <React.Fragment>
+        <App />
+      </React.Fragment>      
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
