@@ -1,0 +1,26 @@
+div#chat-view{
+    display: grid;
+    grid-area: chat;
+    grid-template-rows: 1fr repeat(2, 2fr);
+    grid-template-columns: 1fr;
+    grid-template-areas: "chat-message"
+                         "messages"
+                         "messages";
+    justify-content: stretch;
+    align-content: stretch;
+    border: 5px solid yellow;
+}
+
+div#chat-message{
+    display: grid;
+    grid-area:chat-message;
+    justify-items: center;
+    align-items: center;
+}
+
+div#messages{
+    display: grid;
+    grid-area: messages;
+    justify-items: center;
+    align-items:flex-start;
+}

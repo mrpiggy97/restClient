@@ -8,7 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import { configureStore,applyMiddleware, ConfigureStoreOptions } from '@reduxjs/toolkit';
 import {Provider} from 'react-redux'
 import promise from 'redux-promise-middleware';
-import Reducer from './store/reducer';
+import Reducer,{AuthReducer} from './store/reducer';
 
 const middlewares = applyMiddleware(promise)
 
@@ -19,7 +19,7 @@ const rootReducer = () => {
 }
 
 const storeConfig : ConfigureStoreOptions = {
-  reducer : rootReducer,
+  reducer : AuthReducer,
   enhancers:[middlewares]
 }
 const store = configureStore(storeConfig)

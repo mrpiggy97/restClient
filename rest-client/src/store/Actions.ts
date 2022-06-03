@@ -1,7 +1,7 @@
 
 const actions = {
     loginSuccessful(email : string){
-        return {type : "LOGIN_SUCCESSFUL", payload : {email : email,authenticated : true}}
+        return {type : "LOGIN_SUCCESSFUL", payload : {Email : email,Authenticated : true}}
     },
     loginFailed(){
         return {type : "LOGIN_FAILED",payload : {email : "",authenticated : false}}
