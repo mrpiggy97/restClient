@@ -1,58 +1,51 @@
-import {createReducer,createAction} from "@reduxjs/toolkit"
-import Cookies from "js-cookie"
+import { createAsyncThunk,createSlice,PayloadAction } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
-type AppState = {
-    Authenticated : boolean
-    Email : string
+import login from "../services/login"
+
+export type loginData = {
+    email : string,
+    password : string
 }
 
-type Action = {
-    type : string
-    payload : AppState
+export type AppState = {
+    authenticated : boolean
+    email : string
 }
 
 function getInitialState() : AppState{
-    let token : string | undefined = Cookies.get("blocher-token")
-    let email : string | undefined = Cookies.get("blocher-email")
+    let token = Cookies.get("blocher-token")
+    let email = Cookies.get("blocher-email")
     if(token && email){
         return {
-            Authenticated : true,
-            Email : email,
+            authenticated : true,
+            email : email
         }
     }else{
         return {
-            Authenticated : false,
-            Email : ""
+            authenticated : false,
+            email : ""
         }
     }
 }
 
 const initialState : AppState = getInitialState()
 
-export default function Reducer(state : AppState = initialState,action : Action) : AppState{
-    switch(action.type){
-        case "LOGIN_SUCCESSFUL":
-            return {...state,...action.payload}
-        case "LOGIN_FAILED":
-            return state
-        default:
-            return state
-    }
-}
-
-
-const loginSuccessful = createAction<AppState>("LOGIN_SUCCESSFUL")
-const loginFailed = createAction<AppState>("LOGIN_FAILED")
-
-const AuthReducer = createReducer(initialState, (builder) => {
-    builder.addCase(loginSuccessful,(state : AppState,action : Action) => {
-        state.Authenticated = action.payload.Authenticated
-        state.Email = action.payload.Email
-    }).addCase(loginFailed,(state : AppState,action : Action) => {
-        state.Authenticated = false
-        state.Email = ""
-    })
+export const loginAction = createAsyncThunk("authentication/LOGIN",async(data : loginData) => {
+    let response = await login(data.email,data.password)
+    let jsonResponse = await response?.json()
+    return jsonResponse
 })
 
-export type{AppState,Action}
-export {initialState, AuthReducer}
+export const authenticationSlice = createSlice({
+    name:"authentication",
+    initialState,
+    reducers:{},
+    extraReducers:(builder) => {
+        builder.addCase(loginAction.fulfilled,(state,action) => {
+            console.log(action)
+        })
+    }
+})
+
+export default authenticationSlice.reducer

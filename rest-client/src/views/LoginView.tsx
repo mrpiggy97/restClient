@@ -1,8 +1,7 @@
 import React,{ChangeEvent, FormEvent, useState} from 'react'
-import {useDispatch} from 'react-redux'
 import Cookies from 'js-cookie'
-import login from '../services/login'
-import actions from '../store/Actions'
+import { useAppDispatch } from '../store/Dispatcher'
+import { loginAction } from '../store/reducer'
 import "./css/Login.css"
 
 type LoginResponse = {
@@ -11,7 +10,7 @@ type LoginResponse = {
 }
 
 export default function LoginView():JSX.Element{
-    const dispatcher = useDispatch()
+    const dispatcher = useAppDispatch()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const updateEmail = (event : ChangeEvent<HTMLInputElement>) => {
@@ -22,20 +21,7 @@ export default function LoginView():JSX.Element{
     }
     const makeLogin = async (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        let response : LoginResponse
-        login(email,password)?.then((data) => {
-            return data.json()
-        }).then((data) => {
-            console.log(data)
-            response = data
-            let expDate : Date = new Date(response.expirationDate)
-            Cookies.set("blocher-token",response.token,{expires : expDate})
-            Cookies.set("blocher-email",email)
-            dispatcher(actions.loginSuccessful(email))
-        }).catch((error) => {
-            console.log(error)
-            dispatcher(actions.loginFailed())
-        })
+        dispatcher(loginAction({email:email,password:password}))
     }
     return(
         <div id="login-view">

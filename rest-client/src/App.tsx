@@ -1,14 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import './App.css';
 
 import HeaderView from './views/HeaderView';
 import ChatView from './views/ChatView';
 import LoginView from './views/LoginView';
-import {AppState} from "./store/reducer"
+import { useAppSelector } from './store/Dispatcher';
 
 function App() {
-  const userIsAuthenticated : boolean = useSelector((state : AppState) => state.Authenticated)
+  const userIsAuthenticated : boolean = useAppSelector((state) => state.authentication.authenticated)
   return (
     <div id="app">
         <HeaderView/>

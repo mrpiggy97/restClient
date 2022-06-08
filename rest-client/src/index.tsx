@@ -4,25 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-
-import { configureStore,applyMiddleware, ConfigureStoreOptions } from '@reduxjs/toolkit';
 import {Provider} from 'react-redux'
-import promise from 'redux-promise-middleware';
-import Reducer,{AuthReducer} from './store/reducer';
 
-const middlewares = applyMiddleware(promise)
-
-const rootReducer = () => {
-  return {
-    authentication : Reducer
-  }
-}
-
-const storeConfig : ConfigureStoreOptions = {
-  reducer : AuthReducer,
-  enhancers:[middlewares]
-}
-const store = configureStore(storeConfig)
+import store from './store/store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
