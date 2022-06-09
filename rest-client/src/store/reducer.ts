@@ -1,4 +1,4 @@
-import { createAsyncThunk,createSlice,PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 
 import login from "../services/login"
@@ -34,6 +34,9 @@ const initialState : AppState = getInitialState()
 export const loginAction = createAsyncThunk("authentication/LOGIN",async(data : loginData) => {
     let response = await login(data.email,data.password)
     let jsonResponse = await response?.json()
+    console.log(jsonResponse)
+    Cookies.set("blocher-token",jsonResponse.token)
+    Cookies.set("blocher-email",data.email)
     return jsonResponse
 })
 
@@ -44,6 +47,9 @@ export const authenticationSlice = createSlice({
     extraReducers:(builder) => {
         builder.addCase(loginAction.fulfilled,(state,action) => {
             console.log(action)
+            let newState = getInitialState()
+            console.log(state)
+            return {...state,...newState}
         })
     }
 })

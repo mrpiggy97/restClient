@@ -1,7 +1,7 @@
 import React,{ChangeEvent, FormEvent, useState} from 'react'
-import Cookies from 'js-cookie'
 import { useAppDispatch } from '../store/Dispatcher'
 import { loginAction } from '../store/reducer'
+import { useNavigate } from 'react-router-dom'
 import "./css/Login.css"
 
 type LoginResponse = {
@@ -11,6 +11,7 @@ type LoginResponse = {
 
 export default function LoginView():JSX.Element{
     const dispatcher = useAppDispatch()
+    const navigator = useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const updateEmail = (event : ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +22,9 @@ export default function LoginView():JSX.Element{
     }
     const makeLogin = async (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        dispatcher(loginAction({email:email,password:password}))
+        dispatcher(loginAction({email:email,password:password})).then(() => {
+            navigator("/chat")
+        })
     }
     return(
         <div id="login-view">
