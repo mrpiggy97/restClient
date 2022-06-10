@@ -1,9 +1,11 @@
-import React,{ChangeEvent, FormEvent, useEffect, useState} from 'react'
+import React,{ChangeEvent, FormEvent, MouseEvent, useEffect, useState} from 'react'
 import "./css/ChatView.css"
 
 import chat from '../services/chat'
 import Message from "../components/Message"
-import {useAppSelector} from "../store/Selector"
+import {useAppSelector} from "../store/selector"
+import {useAppDispatch} from "../store/dispatcher"
+import {logoutAction} from "../store/authenticationActions"
 
 type chatResponse = {
     message : string
@@ -21,44 +23,18 @@ export default function ChatView() : JSX.Element{
     const [chatMessage, setChatMessage] = useState("")
     const [messages,setMessages] = useState<Array<string>>([])
     let userIsAuthenticated = useAppSelector((state) => state.authentication.authenticated)
-    //effects
-    const startWebSocketConnection = () : void => {
-        let websocktURL = process.env.REACT_APP_WEBSOCKET_API_URL
-        if (websocktURL){
-           const ws = new WebSocket(`${websocktURL}/ws`)
-            ws.onopen = function(){
-                console.log("connected to websocket")
-            }
-            ws.onmessage = function(event){
-                console.log(event.data)
-                console.log("ws")
-                //let newArray : Array<string> = messages
-                //newArray.push(event.data)
-                //setMessages(newArray)
-            }
-            ws.onerror = function(event : Event) : void{
-                console.log(`error ${event}`)
-            }            
-        }else{
-            throw new Error("failed to load websocket api url")
-        }
-    }
+    let dispatcher = useAppDispatch()
     //http calls
-    const sendMessage = (event : FormEvent<HTMLFormElement>) =>{
-        event.preventDefault()
-        chat(chatMessage)?.then((response) => {
-            console.log("common")
-            return response.json()
-        }).then(() => {
-            console.log("message sent successfuly")
-        }).catch((error) => {
-            console.log(error)
-        })
-    }
 
     //update state
     const updateChatMessage = (event : ChangeEvent<HTMLInputElement>) : void => {
         setChatMessage(event.target.value)
+    }
+
+    //update store
+    const logout = (event : MouseEvent) => {
+        event.preventDefault()
+        dispatcher(logoutAction())
     }
 
     useEffect(() => {
@@ -67,7 +43,8 @@ export default function ChatView() : JSX.Element{
     if(userIsAuthenticated === true){
         return(
             <div id='chat-view'>
-                <form id="chat-message" onSubmit={sendMessage}>
+                <span onClick={logout}>logout</span>
+                <form id="chat-message">
                     <label htmlFor="message">message</label>
                     <input type="text" id="message" onChange={updateChatMessage} />
                     <button type="submit">send</button>

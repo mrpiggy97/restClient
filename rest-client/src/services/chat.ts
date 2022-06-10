@@ -1,6 +1,10 @@
 import Cookies from "js-cookie"
 
-export default function chat(message : string){
+export type chatRequest = {
+    message : string
+}
+
+export default function chat(request : chatRequest){
     let apiUrl : string | undefined = process.env.REACT_APP_HTTP_API_URL
     if (apiUrl){
         let headers : Headers = new Headers()
@@ -12,7 +16,7 @@ export default function chat(message : string){
                 method : "POST",
                 headers : headers,
                 body : JSON.stringify({
-                    message : message
+                    message : request.message
                 })
             })            
         }else{

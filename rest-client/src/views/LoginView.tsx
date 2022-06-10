@@ -1,6 +1,6 @@
 import React,{ChangeEvent, FormEvent, useState} from 'react'
-import { useAppDispatch } from '../store/Dispatcher'
-import { loginAction } from '../store/reducer'
+import { useAppDispatch } from '../store/dispatcher'
+import { loginAction } from '../store/authenticationActions'
 import { useNavigate } from 'react-router-dom'
 import "./css/Login.css"
 
