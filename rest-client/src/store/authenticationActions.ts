@@ -21,7 +21,7 @@ export const loginAction = createAsyncThunk("authentication/LOGIN",async(data : 
     return jsonResponse
 })
 
-export const logoutAction = createAction("LOGOUT",function prepare() {
+export const logoutAction = createAction("authentication/LOGOUT",function prepare() {
     console.log("logging out")
     Cookies.remove("blocher-token")
     Cookies.remove("blocher-email")
