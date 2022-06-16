@@ -1,11 +1,14 @@
 import React,{ChangeEvent, FormEvent, MouseEvent, useEffect, useState} from 'react'
 import "./css/ChatView.css"
 
-import chat from '../services/chat'
 import Message from "../components/Message"
 import {useAppSelector} from "../store/selector"
 import {useAppDispatch} from "../store/dispatcher"
 import {logoutAction} from "../store/authenticationActions"
+import WebSocketConnection from "../repository/WebSocket"
+import chat,{chatRequest} from "../services/chat"
+
+WebSocketConnection()
 
 type chatResponse = {
     message : string
@@ -21,10 +24,10 @@ function uuid() {
 
 export default function ChatView() : JSX.Element{
     const [chatMessage, setChatMessage] = useState("")
+    const currentMessage : string = useAppSelector((state) => state.chat.message)
     const [messages,setMessages] = useState<Array<string>>([])
     let userIsAuthenticated = useAppSelector((state) => state.authentication.authenticated)
     let dispatcher = useAppDispatch()
-    //http calls
 
     //update state
     const updateChatMessage = (event : ChangeEvent<HTMLInputElement>) : void => {
@@ -37,14 +40,24 @@ export default function ChatView() : JSX.Element{
         dispatcher(logoutAction())
     }
 
-    useEffect(() => {
-        console.log(`chat says user is authenticated? ${userIsAuthenticated}`)
-    },[])
+    const sendMessage = async (event : FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        try {
+            let request : chatRequest = {
+                message : chatMessage
+            }
+            let response = await chat(request)
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     if(userIsAuthenticated === true){
         return(
             <div id='chat-view'>
                 <span onClick={logout}>logout</span>
-                <form id="chat-message">
+                <form id="chat-message" onSubmit={sendMessage}>
                     <label htmlFor="message">message</label>
                     <input type="text" id="message" onChange={updateChatMessage} />
                     <button type="submit">send</button>
