@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authenticationReducer from "./authenticationReducer"
+import chatReducer from "./chatReducer";
 
 const store = configureStore({
     reducer:{
         authentication : authenticationReducer,
+        chat : chatReducer
     }
 })
 
