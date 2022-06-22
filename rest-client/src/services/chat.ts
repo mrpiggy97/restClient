@@ -4,6 +4,11 @@ export type chatRequest = {
     message : string
 }
 
+export type chatResponse = {
+    message : string,
+    uuid : string
+}
+
 export default function chat(request : chatRequest){
     let apiUrl : string | undefined = process.env.REACT_APP_HTTP_API_URL
     if (apiUrl){
