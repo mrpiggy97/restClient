@@ -4,5 +4,6 @@ export type AuthenticationState = {
 }
 
 export type ChatState = {
-    message : string
+    message : string,
+    uuid : string
 }
