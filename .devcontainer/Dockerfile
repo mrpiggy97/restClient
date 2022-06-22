@@ -6,9 +6,13 @@ FROM mcr.microsoft.com/vscode/devcontainers/go:0-${VARIANT}
 
 # [Choice] Node.js version: none, lts/*, 16, 14, 12, 10
 ARG NODE_VERSION="none"
-ENV PORT=8000
+ENV SERVER_PORT=":8000"
 ENV REACT_APP_HTTP_API_URL="http://localhost:5050"
 ENV REACT_APP_WEBSOCKET_API_URL="ws://localhost:5050"
+ENV PORT=":5050"
+ENV DATABASE_URL="postgres://mrpiggy97:Megustamasjesus10@172.30.0.1:5432/rest?sslmode=disable"
+ENV JWT_SECRET="aa2efc7382a28cd55e3f940b96b74541ca819aee610afe73f42df366654e8003"
+ENV ALLOWED_CROSS_SITE_ORIGINS="http://localhost:8000,http://localhost:3000"
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
 # [Optional] Uncomment this section to install additional OS packages.
