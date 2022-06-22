@@ -1,5 +1,5 @@
 import { createAsyncThunk,createAction } from "@reduxjs/toolkit"
-import login from "../services/login"
+import login,{loginResponse} from "../services/login"
 import Cookies from "js-cookie"
 import { AuthenticationState } from "./stateTypes"
 
@@ -14,10 +14,9 @@ export type messageData = {
 
 export const loginAction = createAsyncThunk("authentication/LOGIN",async(data : loginData) => {
     let response = await login(data.email,data.password)
-    let jsonResponse = await response?.json()
-    console.log(jsonResponse)
-    Cookies.set("blocher-token",jsonResponse.token)
-    Cookies.set("blocher-email",data.email)
+    let jsonResponse : loginResponse = await response?.json() as loginResponse
+    Cookies.set("blocher-token",jsonResponse.token,{expires:jsonResponse.ExpirationDate})
+    Cookies.set("blocher-email",data.email,{expires:jsonResponse.ExpirationDate})
     return jsonResponse
 })
 
