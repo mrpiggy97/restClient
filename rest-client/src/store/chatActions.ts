@@ -1,12 +1,11 @@
-import { createAsyncThunk,createAction } from "@reduxjs/toolkit"
-import chat,{chatRequest} from "../services/chat"
-import { ChatState,AuthenticationState } from "./stateTypes"
-import Cookies from "js-cookie"
+import { createAction } from "@reduxjs/toolkit"
+import {chatResponse} from "../services/chat"
+import { ChatState } from "./stateTypes"
 
-export const sendMessageAction = createAction("chat/SEND_MESSAGE",function prepare(response){
-    console.log(response)
+export const sendMessageAction = createAction("chat/SEND_MESSAGE",function prepare(response : chatResponse){
     let payload : ChatState = {
-        message : ""
+        message : response.message,
+        uuid : response.uuid
     }
     return {
         payload: payload
