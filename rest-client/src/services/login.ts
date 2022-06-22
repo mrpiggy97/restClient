@@ -1,5 +1,10 @@
 
 
+export type loginResponse = {
+    token : string
+    ExpirationDate : number
+}
+
 export default function login(email : string, password : string){
     if (email.length === 0){
         throw new Error("email cannot be blank")
