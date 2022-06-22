@@ -3,7 +3,8 @@ import { ChatState } from "./stateTypes";
 import { sendMessageAction } from "./chatActions";
 
 const initialState : ChatState = {
-    message : ""
+    message : "",
+    uuid:""
 }
 
 const chatSlice = createSlice({
@@ -13,7 +14,7 @@ const chatSlice = createSlice({
     extraReducers:(builder) => {
         builder.addCase(sendMessageAction,(state,action) => {
             console.log("message fullfiled")
-            return {...state}
+            return {...state,...action.payload}
         })
     }
 })
