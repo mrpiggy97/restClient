@@ -4,7 +4,6 @@
 
 body{
   margin: 0%;
-  border: 5px gold solid;
 }
 
 div#app{
@@ -15,7 +14,6 @@ div#app{
                        "chat"
                        "chat"
                        "chat";
-  border: 5px brown solid;
   justify-content: stretch;
   align-content: stretch;
   min-height: 800px;

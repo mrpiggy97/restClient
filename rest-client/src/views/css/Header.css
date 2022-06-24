@@ -4,4 +4,8 @@ div#header-view{
     justify-items: center;
     align-items: center;
     border: 5px solid purple;
+    border-radius: 30px;
+    font-size: large;
+    font-family: sans-serif;
+    color: deeppink;
 }

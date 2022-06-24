@@ -8,19 +8,30 @@ div#chat-view{
                          "messages";
     justify-content: stretch;
     align-content: stretch;
-    border: 5px solid yellow;
 }
 
-div#chat-message{
+form#chat-message{
     display: grid;
     grid-area:chat-message;
     justify-items: center;
     align-items: center;
+    color: deeppink;
 }
 
 div#messages{
     display: grid;
     grid-area: messages;
+    border: solid 5px deeppink;
+    border-radius: 30px;
     justify-items: center;
-    align-items:flex-start;
+    align-items: flex-start;
+    row-gap: 10px;
+    grid-auto-rows: min-content;
+}
+
+input[type="text"]#message{
+    border: solid 5px deeppink;
+    border-radius: 30px;
+    height: 20px;
+    outline: none;
 }
