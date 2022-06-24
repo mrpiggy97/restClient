@@ -79,21 +79,16 @@ export default function ChatView() : JSX.Element{
             setMessages(arrayClone)            
         }
     },[currentMessage])
-
-    const logMessages = () => {
-        console.log(messages)
-    }
     
     if(userIsAuthenticated === true){
         return(
             <div id='chat-view'>
-                <span onClick={logout}>logout</span>
                 <form id="chat-message" onSubmit={sendMessage}>
-                    <label htmlFor="message">message</label>
+                    <span onClick={logout}>logout</span>
+                    <label htmlFor="message">write your message below</label>
                     <input type="text" id="message" onChange={updateChatMessage} />
                     <button type="submit">send</button>
                 </form>
-                <span onClick={logMessages}>click here to log messages</span>
                 <div id="messages">
                     {messages.map((message) => {
                         return <Message message={message.message} key={message.uuid} />
