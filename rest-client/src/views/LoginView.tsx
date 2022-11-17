@@ -4,11 +4,6 @@ import { loginAction } from '../store/authenticationActions'
 import { useNavigate } from 'react-router-dom'
 import "./css/Login.css"
 
-type LoginResponse = {
-    token : string
-    expirationDate : number
-}
-
 export default function LoginView():JSX.Element{
     const dispatcher = useAppDispatch()
     const navigator = useNavigate()
