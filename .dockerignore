@@ -1,0 +1,6 @@
+/public
+/rest-client/node_modules
+/rest-client/build
+.gitignore
+docker-compose.yml
+Dockerfile
