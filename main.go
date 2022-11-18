@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -19,7 +20,7 @@ func (server *Server) ServeHTTP(writer http.ResponseWriter, req *http.Request) {
 
 func NewServer() *Server {
 	var router *httprouter.Router = httprouter.New()
-	router.ServeFiles("/*filepath", http.Dir("./rest-client/public"))
+	router.ServeFiles("/*filepath", http.Dir("./rest-client/build"))
 	return &Server{
 		router: router,
 	}
@@ -27,5 +28,10 @@ func NewServer() *Server {
 
 func main() {
 	var appServer *Server = NewServer()
-	log.Fatal(http.ListenAndServe("0.0.0.0:8000", appServer))
+	var port string = os.Getenv("PORT")
+	if len(port) == 0 {
+		port = "8000"
+	}
+	var address string = fmt.Sprintf("0.0.0.0:%v", port)
+	log.Fatal(http.ListenAndServe(address, appServer))
 }
