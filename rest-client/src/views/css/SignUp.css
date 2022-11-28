@@ -1,0 +1,5 @@
+div#signup-view{
+    display: grid;
+    align-items: baseline;
+    justify-items: center;
+}
