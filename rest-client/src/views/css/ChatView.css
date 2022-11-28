@@ -30,8 +30,15 @@ div#messages{
 }
 
 input[type="text"]#message{
-    border: solid 5px deeppink;
+    border: solid 5px purple;
     border-radius: 30px;
     height: 20px;
     outline: none;
+}
+
+button#chat{
+    border: 3px solid purple;
+    border-radius: 10%;
+    background-color: transparent;
+    color: purple
 }

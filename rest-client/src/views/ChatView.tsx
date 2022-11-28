@@ -87,7 +87,7 @@ export default function ChatView() : JSX.Element{
                     <span onClick={logout}>logout</span>
                     <label htmlFor="message">write your message below</label>
                     <input type="text" id="message" onChange={updateChatMessage} />
-                    <button type="submit">send</button>
+                    <button id="chat" type="submit">send</button>
                 </form>
                 <div id="messages">
                     {messages.map((message) => {
