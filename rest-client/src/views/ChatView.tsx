@@ -34,6 +34,8 @@ export default function ChatView() : JSX.Element{
                 message : chatMessage
             }
             await chat(request)
+            let element : HTMLFormElement = document.getElementById("chat-message") as HTMLFormElement
+            element.reset()
         } catch (error) {
             console.log(error)
         }
@@ -75,7 +77,6 @@ export default function ChatView() : JSX.Element{
         if (currentMessage.message.length > 0){
             let arrayClone : Array<chatResponse> = messages.slice()
             arrayClone.push(currentMessage)
-            console.log(messages)
             setMessages(arrayClone)            
         }
     },[currentMessage])
@@ -86,8 +87,8 @@ export default function ChatView() : JSX.Element{
                 <form id="chat-message" onSubmit={sendMessage}>
                     <span onClick={logout}>logout</span>
                     <label htmlFor="message">write your message below</label>
-                    <input type="text" id="message" onChange={updateChatMessage} />
-                    <button id="chat" type="submit">send</button>
+                    <input type="text" id="message" onChange={updateChatMessage}/>
+                    <button id="chat" type="submit">Send</button>
                 </form>
                 <div id="messages">
                     {messages.map((message) => {
