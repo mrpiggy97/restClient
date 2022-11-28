@@ -2,16 +2,17 @@ import React from 'react';
 import './App.css';
 
 import HeaderView from './views/HeaderView';
+import AuthView from './views/AuthView';
 import ChatView from './views/ChatView';
-import LoginView from './views/LoginView';
 import { useAppSelector } from './store/selector';
 
 function App() {
   let userIsAuthenticated : boolean = useAppSelector((state) => state.authentication.authenticated)
+  console.log(userIsAuthenticated)
   return (
     <div id="app">
         <HeaderView/>
-        {userIsAuthenticated ? <ChatView/> : <LoginView/>}
+        {userIsAuthenticated ? <ChatView/> : <AuthView/>}
     </div>
   );
 }

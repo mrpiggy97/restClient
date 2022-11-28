@@ -9,9 +9,8 @@ body{
 div#app{
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 5fr 10fr 10fr 10fr;
+  grid-template-rows: 5fr 10fr 10fr;
   grid-template-areas: "header"
-                       "chat"
                        "chat"
                        "chat";
   justify-content: stretch;
