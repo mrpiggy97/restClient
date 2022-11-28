@@ -1,0 +1,39 @@
+div#auth-view{
+    display: grid;
+    grid-area: chat;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "auth"
+                         "forms";
+    border: 3px solid darkslateblue;
+    border-radius: 10%;
+    color: deeppink;
+}
+
+div#auth{
+    display: grid;
+    grid-area: auth;
+}
+
+div#forms{
+    display: grid;
+    grid-area: forms;
+    align-items: baseline;
+    justify-items: center;
+}
+
+button.auth{
+    border: 3px solid purple;
+    border-radius: 10%;
+    background-color: transparent;
+    color: purple;
+}
+
+input.fields{
+    border: 2px solid purple;
+    border-radius: 5%;
+}
+
+span.redirect:hover{
+    cursor: pointer;
+}
