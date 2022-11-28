@@ -1,7 +1,12 @@
 div#login-view{
     display: grid;
-    grid-area: chat;
     justify-items: center;
-    align-items: center;
-    border: 5px solid blue;
+    align-items: baseline;
+}
+
+button#login-button{
+    background-color: transparent;
+    border: 3px solid purple;
+    border-radius: 10%;
+    color: purple;
 }
