@@ -1,0 +1,22 @@
+version: "3.0"
+
+services:
+  database:
+    image: fabianjesusrivas/restdb:v1.0.0
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=testing_user
+      - POSTGRES_PASSWORD=testing_password
+      - POSTGRES_DB=testingdb
+  backend:
+    depends_on:
+      - database
+    image: fabianjesusrivas/rest:v1.0.2
+    ports:
+      - "5050:5050"
+    environment:
+      - ALLOWED_CROSS_SITE_ORIGINS=http://localhost:8000,http://localhost:3000
+      - PORT=5050
+      - DATABASE_URL=postgres://testing_user:testing_password@database:5432/testingdb?sslmode=disable
+      - JWT_SECRET=ajwai5UGQZ5DubRXR/A4u11rfjTdejxYvhjuosHNRs6R+w7eD7Ao/fP3sZz5NUOXMbrrCn2BprJvf95wcpjSX9GwxIziF+l1LjSryfv3547K/+amDBZ1DCyplZPqhU+UtsLbqSbiAYUuuoOwFLM39SvkuQaa+3pI74IfTTG53qH1eptsX4qJx4w8YQmZEKFG4deZO6N0gQMK+wchodFGFuJ27qGWyzpRAEp2GLaEBKDspjzJUmrCN0fPOjmoEpQkyxZv37zSG4q/wT8cR8PFY9R8awyOUWmkQomcB5Yawo6tXdUS7xD4Qe0eShN+LKMbFzeeiJ5gXhwgr5PLsM1XyA==      - JWT_SECRET=ajwai5UGQZ5DubRXR/A4u11rfjTdejxYvhjuosHNRs6R+w7eD7Ao/fP3sZz5NUOXMbrrCn2BprJvf95wcpjSX9GwxIziF+l1LjSryfv3547K/+amDBZ1DCyplZPqhU+UtsLbqSbiAYUuuoOwFLM39SvkuQaa+3pI74IfTTG53qH1eptsX4qJx4w8YQmZEKFG4deZO6N0gQMK+wchodFGFuJ27qGWyzpRAEp2GLaEBKDspjzJUmrCN0fPOjmoEpQkyxZv37zSG4q/wT8cR8PFY9R8awyOUWmkQomcB5Yawo6tXdUS7xD4Qe0eShN+LKMbFzeeiJ5gXhwgr5PLsM1XyA==
