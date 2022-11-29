@@ -9,7 +9,6 @@ ARG NODE_VERSION="none"
 ENV REACT_APP_HTTP_API_URL="http://localhost:5050"
 ENV REACT_APP_WEBSOCKET_API_URL="ws://localhost:5050"
 ENV PORT="8000"
-ENV ALLOWED_CROSS_SITE_ORIGINS="http://localhost:8000,http://localhost:3000"
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
 # [Optional] Uncomment this section to install additional OS packages.
