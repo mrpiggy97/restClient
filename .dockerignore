@@ -3,4 +3,5 @@
 /rest-client/build
 .gitignore
 docker-compose.yml
+docker-compose.testing.yml
 Dockerfile
