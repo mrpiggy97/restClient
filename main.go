@@ -29,9 +29,6 @@ func NewServer() *Server {
 func main() {
 	var appServer *Server = NewServer()
 	var port string = os.Getenv("PORT")
-	if len(port) == 0 {
-		port = "8000"
-	}
 	var address string = fmt.Sprintf("0.0.0.0:%v", port)
 	log.Fatal(http.ListenAndServe(address, appServer))
 }
