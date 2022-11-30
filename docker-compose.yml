@@ -23,7 +23,7 @@ services:
   frontend:
     depends_on:
       - backend
-    image: fabianjesusrivas/rest-client:v1.0.2
+    image: fabianjesusrivas/rest-client:v1.0.3
     ports:
       - "8000:8000"
     environment:
