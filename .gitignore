@@ -33,3 +33,4 @@ rest-client/public/build
 # testing
 /rest-client/coverage
 /rest-client/build
+node_modules
