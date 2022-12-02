@@ -23,9 +23,12 @@ services:
   frontend:
     depends_on:
       - backend
-    image: fabianjesusrivas/rest-client:v1.0.3
+    build:
+      context: .
+      args:
+        - HTTP_URL=http://localhost:5050
+        - WEBSOCKET_URL=ws://localhost:5050
     ports:
       - "8000:8000"
     environment:
       - PORT=8000
-      - REACT_APP_HTTP_API_URL=http://localhost:5050
